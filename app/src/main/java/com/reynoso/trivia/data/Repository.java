@@ -7,7 +7,6 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.reynoso.trivia.MainActivity;
 import com.reynoso.trivia.controller.AppController;
 import com.reynoso.trivia.model.Question;
 
@@ -25,7 +24,7 @@ public class Repository{
     private static ArrayList<Question> questionArrayList = new ArrayList<>();
     private static String URL = "https://opentdb.com/api.php?amount=10&type=boolean";
 
-    public static List<Question> getQuestions(){
+    public static List<Question> getQuestions(final AnswerListAsyncResponse callBack){
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,URL, null, new Response.Listener<JSONObject>() {
 
             @Override
@@ -39,6 +38,9 @@ public class Repository{
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
+                }
+                if (callBack !=null){
+                    callBack.ProcessFinished(questionArrayList);
                 }
             }
         }, new Response.ErrorListener() {

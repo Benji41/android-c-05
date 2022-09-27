@@ -28,10 +28,11 @@ public class AppController extends Application {
     public static  AppController getInstance(){
         return instance;
     }
-
     @Override
     public void onCreate() {
         super.onCreate();
+        //Al correr onCreate, ya se ha creado una instancia de esta clase que hereda de aplicacion, por lo que
+        //la inicializacion de abajo es legal.
         instance = this;
     }
 }

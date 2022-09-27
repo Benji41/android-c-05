@@ -14,6 +14,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.snackbar.Snackbar;
 import com.reynoso.trivia.controller.AppController;
+import com.reynoso.trivia.data.AnswerListAsyncResponse;
 import com.reynoso.trivia.data.Repository;
 import com.reynoso.trivia.databinding.ActivityMainBinding;
 import com.reynoso.trivia.model.Question;
@@ -22,16 +23,24 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding mainBinding;
+    String TAG = MainActivity.class.getName();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mainBinding = DataBindingUtil.setContentView(MainActivity.this,R.layout.activity_main);
         Utils.toast("WASSSSUP");
         Utils.snackBar(mainBinding.getRoot(),"Noe");
-        List<Question> questionList= Repository.getQuestions();
+        List<Question> questionList= Repository.getQuestions(new AnswerListAsyncResponse() {
+            @Override
+            public void ProcessFinished(ArrayList<Question> questionArrayList) {
+                mainBinding.textViewQuestion.setText(questionArrayList.get(0).getQuestion());
+            }
+        });
+
     }
 }
