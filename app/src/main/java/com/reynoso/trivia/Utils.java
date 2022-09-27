@@ -13,11 +13,12 @@ import com.reynoso.trivia.controller.AppController;
  * Created by Noé Benjamín Reynoso Aguirre on 9/25/2022.
  */
 public class Utils {
-    public static void toast(String MESSAGE){
+    public static void toast(String MESSAGE,Context context){
 
-        Toast.makeText(AppController.getInstance(), MESSAGE, Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, MESSAGE, Toast.LENGTH_SHORT).show();
     }
     public static void snackBar(View view, String MESSAGE){
-        Snackbar.make(view,MESSAGE,Snackbar.LENGTH_SHORT).show();
+        Snackbar.make(view.getContext(),view,MESSAGE,Snackbar.LENGTH_SHORT).show();
+
     }
 }
