@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
     private int currentQuestion =-1;
     private List<Question> questionList;
     private Question question;
-    private boolean answer = true;
     private boolean isReady = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void ProcessFinished(ArrayList<Question> questionArrayList) {
                 updateQuestion();
-                answer = false;
             }
         });
         mainBinding.buttonTrue.setOnClickListener(new View.OnClickListener() {
@@ -86,8 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
     private void checkAnswer(boolean answerP){
-        answer = answerP == question.isAnswer();
-        if (answer){
+        if (answerP == question.isAnswer()){
             isReady=true;
             fadeCardView();
             Utils.snackBar(this.mainBinding.getRoot(),"Correct!!!");
